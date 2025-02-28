@@ -8,7 +8,7 @@ export default function Content({page}: {page: string}) {
   const titleText = page === 'responsable' ? 'Responsable' : 'ID Responsable';
   const labelText = page === 'responsable' ? 'Seleccione un responsable:' : 'Seleccione un ID responsable:';
 
-  const apiBaseUrl = 'http://localhost:3001/';
+  const apiBaseUrl = 'https://prueba-tecnica-responsables.vercel.app:3001/';
 
   // Función asíncrona para obtener datos del Web Service
   async function getData(url: string): Promise<Responsable[] | null> {
