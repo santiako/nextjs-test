@@ -1,0 +1,3 @@
+{
+  "devCommand": "concurrently \"node ./web-service/service.js\" \"next dev --turbopack\""
+}
