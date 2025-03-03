@@ -1,11 +1,11 @@
 export interface Responsable {
-  Correo: string;
-  IDCategoria: string;
-  IDResponsable: string;
-  IDTipo: string;
-  Puesto: string;
-  Responsable: string;
-  Telefono: string;
+  email: string;
+  categoryId: string;
+  id: string;
+  typeId: string;
+  position: string;
+  name: string;
+  phone: string;
 }
 
 export interface NavItem {

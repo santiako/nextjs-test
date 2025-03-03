@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"node ./web-service/service.js\" \"next dev --turbopack\"",
+    "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "concurrently \"node ./web-service/service.js\" \"next dev --turbopack\"",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "classnames": "^2.5.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "next": "15.1.6",
     "react": "^19.0.0",
@@ -20,7 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
+    "@types/node": "^20.17.22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "concurrently": "^9.1.2",

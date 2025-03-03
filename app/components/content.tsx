@@ -5,22 +5,31 @@ import { Responsable } from '../interfaces';
 export default function Content({page}: {page: string}) {
   const [resData, setResData] = useState<Responsable[]>([]);
   const [selectedRes, setSelectedRes] = useState<Responsable>();
-  const titleText = page === 'responsable' ? 'Responsable' : 'ID Responsable';
-  const labelText = page === 'responsable' ? 'Seleccione un responsable:' : 'Seleccione un ID responsable:';
+  const [titleText, setTitleText] = useState<string>('');
 
-  const apiBaseUrl = 'https://prueba-tecnica-responsables.vercel.app:3001/';
+  const labelText = page === 'responsable' ? 'Seleccione un responsable:' : 'Seleccione un ID responsable:';
 
   // Función asíncrona para obtener datos del Web Service
   async function getData(url: string): Promise<Responsable[] | null> {
+    const API_KEY = process.env.API_KEY;
+    const API_URL = process.env.API_URL;
     try {
-      const response = await fetch(`${apiBaseUrl}${url}`);
+      const response = await fetch(API_URL, {
+        headers: {
+          'Authorization': API_KEY
+        }
+      });
       if (!response.ok && response.status === 404) {
-        throw new Error('Error: not found (status code 404)');
+        throw new Error('Not found (status code 404)');
+      } else if (!response.ok && response.status === 401) {
+        throw new Error('Unauthorized (status code 401)');
       }
       const data: Responsable[] = await response.json();
+      setTitleText(page === 'responsable' ? 'Responsable' : 'ID Responsable');
       return data;
     } catch (err) {
-      console.error('Error fetching data:', err);
+      setTitleText(`${err}`);
+      console.error('Fetching data:', err);
       return null;
     }
   }
@@ -40,13 +49,14 @@ export default function Content({page}: {page: string}) {
   // Función para manejar el cambio de selección del dropdown
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
-    const selected = resData.find(res => res.IDResponsable === selectedId);
+    const selected = resData.find(res => res.id === selectedId);
     setSelectedRes(selected);
   };
 
   return (
     <div>
       <h1 className="text-3xl font-bold tracking-tight max-w-xl mx-auto text-gray-900">{titleText}</h1>
+      {(titleText === 'Responsable' || titleText === 'ID Responsable') && 
       <form className="max-w-xl mx-auto mt-4">
         <label
           htmlFor="responsables"
@@ -60,22 +70,21 @@ export default function Content({page}: {page: string}) {
           onChange={handleSelectChange}
         >
           {resData.map((item, index) => (
-            <option value={item.IDResponsable} key={index}>{page === 'responsable' ? item.Responsable : item.IDResponsable}</option>
+            <option value={item.id} key={index}>{page === 'responsable' ? item.name : item.id}</option>
           ))}
         </select>
         <br />
         <div>
           {page === 'responsable' ?
-            <p><strong>IDResponsable: </strong>{selectedRes ? selectedRes.IDResponsable : ''}</p> :
-            <p><strong>Responsable: </strong>{selectedRes ? selectedRes.Responsable : ''}</p>}
-          <p><strong>Correo: </strong>{selectedRes ? selectedRes.Correo : ''}</p>
-          <p><strong>IDCategoria: </strong>{selectedRes ? selectedRes.IDCategoria : ''}</p>
-          <p><strong>IDTipo: </strong>{selectedRes ? selectedRes.IDTipo : ''}</p>
-          <p><strong>Puesto: </strong>{selectedRes ? selectedRes.Puesto : ''}</p>
-          <p><strong>Telefono: </strong>{selectedRes ? selectedRes.Telefono : ''}</p>
+            <p><strong>IDResponsable: </strong>{selectedRes ? selectedRes.id : ''}</p> :
+            <p><strong>Responsable: </strong>{selectedRes ? selectedRes.name : ''}</p>}
+          <p><strong>Correo: </strong>{selectedRes ? selectedRes.email : ''}</p>
+          <p><strong>IDCategoria: </strong>{selectedRes ? selectedRes.categoryId : ''}</p>
+          <p><strong>IDTipo: </strong>{selectedRes ? selectedRes.typeId : ''}</p>
+          <p><strong>Puesto: </strong>{selectedRes ? selectedRes.position : ''}</p>
+          <p><strong>Telefono: </strong>{selectedRes ? selectedRes.phone : ''}</p>
         </div>
-      </form>
-
+      </form>}
     </div>
   );
 }
