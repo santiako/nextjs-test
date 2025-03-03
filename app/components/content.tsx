@@ -10,7 +10,7 @@ export default function Content({page}: {page: string}) {
   const labelText = page === 'responsable' ? 'Seleccione un responsable:' : 'Seleccione un ID responsable:';
 
   // Función asíncrona para obtener datos del Web Service
-  async function getData(url: string): Promise<Responsable[] | null> {
+  async function getData(): Promise<Responsable[] | null> {
     const API_KEY = process.env.API_KEY;
     const API_URL = process.env.API_URL;
     try {
@@ -37,7 +37,7 @@ export default function Content({page}: {page: string}) {
   // Llama a la función getData(), actualiza el estado resData y selecciona el primer elemento al cargar la página
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getData('responsables');
+      const data = await getData();
       if (data) {
         setResData(data);
         setSelectedRes(data[0]);
