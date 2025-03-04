@@ -13,11 +13,15 @@ export default function Content({page}: {page: string}) {
   async function getData(): Promise<Responsable[] | null> {
     const API_KEY = process.env.API_KEY;
     const API_URL = process.env.API_URL;
+    if (!API_URL) {
+      throw new Error('API_URL is not defined');
+    }
+    const req_url: RequestInfo = API_URL;
     try {
-      const response = await fetch(API_URL, {
-        headers: {
+      const response = await fetch(req_url, {
+        headers: API_KEY ? {
           'Authorization': API_KEY
-        }
+        } : {}
       });
       if (!response.ok && response.status === 404) {
         throw new Error('Not found (status code 404)');
