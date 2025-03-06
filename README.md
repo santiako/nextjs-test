@@ -8,7 +8,7 @@ Prueba técnica Responsables
 2. Correr comando de instalación: 
 npm install
 
-3. Ejecutar el Web Service y la página en simultáneo
+3. Ejecutar la página. (Primero debe ejecutar el Web Service)
 npm run dev
 
 4. Visualizar el sitio local en el navegador

@@ -59,7 +59,7 @@ export default function Content({page}: {page: string}) {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight max-w-xl mx-auto text-gray-900">{titleText}</h1>
+      <h1 className="text-3xl font-bold tracking-tight max-w-xl mx-auto">{titleText}</h1>
       {(titleText === 'Responsable' || titleText === 'ID Responsable') && 
       <form className="max-w-xl mx-auto mt-4">
         <label
@@ -80,13 +80,13 @@ export default function Content({page}: {page: string}) {
         <br />
         <div>
           {page === 'responsable' ?
-            <p><strong>IDResponsable: </strong>{selectedRes ? selectedRes.id : ''}</p> :
+            <p><strong>ID responsable: </strong>{selectedRes ? selectedRes.id : ''}</p> :
             <p><strong>Responsable: </strong>{selectedRes ? selectedRes.name : ''}</p>}
           <p><strong>Correo: </strong>{selectedRes ? selectedRes.email : ''}</p>
-          <p><strong>IDCategoria: </strong>{selectedRes ? selectedRes.categoryId : ''}</p>
-          <p><strong>IDTipo: </strong>{selectedRes ? selectedRes.typeId : ''}</p>
+          <p><strong>ID categoría: </strong>{selectedRes ? selectedRes.categoryId : ''}</p>
+          <p><strong>ID tipo: </strong>{selectedRes ? selectedRes.typeId : ''}</p>
           <p><strong>Puesto: </strong>{selectedRes ? selectedRes.position : ''}</p>
-          <p><strong>Telefono: </strong>{selectedRes ? selectedRes.phone : ''}</p>
+          <p><strong>Teléfono: </strong>{selectedRes ? selectedRes.phone : ''}</p>
         </div>
       </form>}
     </div>
